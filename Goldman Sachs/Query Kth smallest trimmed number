@@ -1,0 +1,22 @@
+    vector<int> smallestTrimmedNumbers(vector<string>& nums, vector<vector<int>>& queries) {
+        //Creating a vector to store the answer
+        vector<int> res;
+        int n = nums.size();
+        //Looping through the queries 2D array
+        for(auto &q:queries) {
+            //Creating a vector of pairs that stores stirng with its index value
+            vector<pair<string,int>> pq;
+            for(int i=0;i<n; i++) {
+                //storing trimmed array and its index
+                pq.push_back({(nums[i].substr(nums[i].size()-q[1])), i});
+            }
+            //sorting the vector also if we get same string then it will sort it on the basis of its index value and that's what we want when we encounter same strings
+            sort(pq.begin(), pq.end());
+            //storing the desired answer in the vector
+            res.push_back(pq[q[0]-1].second);
+        }
+        return res;
+    }
+
+##Short
+Loop the queries array -> Create a vector of pairs to store trimmed strings and their index -> Sort the vector and get the desired index value.
