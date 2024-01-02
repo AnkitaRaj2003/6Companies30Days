@@ -1,4 +1,6 @@
-    vector<int> smallestTrimmedNumbers(vector<string>& nums, vector<vector<int>>& queries) {
+m: size of queries and n: size of nums
+TC: O(m*nlogn), SC: O(m+n)
+vector<int> smallestTrimmedNumbers(vector<string>& nums, vector<vector<int>>& queries) {
         //Creating a vector to store the answer
         vector<int> res;
         int n = nums.size();
@@ -18,5 +20,4 @@
         return res;
     }
 
-##Short
-Loop the queries array -> Create a vector of pairs to store trimmed strings and their index -> Sort the vector and get the desired index value.
+#IN SHORT: Loop the queries array -> Create a vector of pairs to store trimmed strings and their index -> Sort the vector and get the desired index value.
