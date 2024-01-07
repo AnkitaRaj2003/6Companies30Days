@@ -1,0 +1,17 @@
+//Leetcode: https://leetcode.com/problems/find-consecutive-integers-from-a-data-stream/description/
+
+class DataStream {
+public:
+int val,kval,count=0;
+    DataStream(int value, int k) {
+        val = value;
+        kval = k;
+    }
+    
+    bool consec(int num) {
+        if(num==val) count++;
+        else count = 0;
+        if(kval>count) return false;
+        return true;
+    }
+};
