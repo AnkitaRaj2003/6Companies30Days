@@ -1,0 +1,22 @@
+//GFG: https://www.geeksforgeeks.org/problems/possible-words-from-phone-digits-1587115620/1
+
+    void f(int i,int a[],int n,string str,vector<string>&ans,string s[]){
+        if(i>=n){
+            ans.push_back(str);
+            return;
+        }
+        for(int j=0;j<s[a[i]-1].size();j++){
+            str+=s[a[i]-1][j];
+            f(i+1,a,n,str,ans,s);
+            str = str.substr(0,str.length()-1);
+        }
+    }
+    vector<string> possibleWords(int a[], int N)
+    {
+        //Your code here
+        string s[9] = {"","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        vector<string>ans;
+        string str = "";
+        f(0,a,N,str,ans,s);
+        return ans;
+    }
