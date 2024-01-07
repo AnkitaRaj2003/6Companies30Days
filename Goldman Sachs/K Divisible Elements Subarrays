@@ -1,0 +1,16 @@
+//GFG: https://www.geeksforgeeks.org/problems/number-following-a-pattern3126/1
+
+    int countDistinct(vector<int>& nums, int k, int p) {
+        set<vector<int>> ans;
+        for(int s=0;s<nums.size();s++){
+            vector<int>v;
+            int c=0;
+            for(int i=s;i<nums.size();i++){
+                if(nums[i]%p==0) c++;
+                if(c>k) break;
+                v.push_back(nums[i]);
+                ans.insert(v);
+            }
+        }
+        return ans.size();
+    }
