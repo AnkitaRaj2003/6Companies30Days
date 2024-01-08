@@ -1,0 +1,18 @@
+//GFG: https://www.geeksforgeeks.org/problems/run-length-encoding/1
+
+string encode(string src)
+{     
+  //Your code here 
+  if(src=="") return src;
+  int c=1;
+  string s="";
+  for(int i=1;src[i]!='\0';i++){
+      if(src[i]==src[i-1]) c++;
+      else{
+          s=s+src[i-1]+to_string(c);
+          c = 1;
+      }
+  }
+  s=s+src[src.length()-1]+to_string(c);
+  return s;
+}     
