@@ -1,0 +1,47 @@
+//Leetcode: https://leetcode.com/problems/image-smoother/
+
+    vector<vector<int>> imageSmoother(vector<vector<int>>& img) {
+        vector<vector<int>> ans;
+        for(int i=0;i<img.size();i++){
+            vector<int>v;
+            for(int j=0;j<img[i].size();j++){
+                int sum=0,count=1;
+                sum+=img[i][j];
+                if(i>0&&j>0){
+                    sum+=img[i-1][j-1];
+                    count++;
+                }
+                if(j>0){
+                    sum+=img[i][j-1];
+                    count++;
+                }
+                if(i<img.size()-1 && j>0){
+                    sum+=img[i+1][j-1];
+                    count++;
+                }
+                if(i>0){
+                    sum+=img[i-1][j];
+                    count++;
+                }
+                if(i<img.size()-1){
+                    sum+=img[i+1][j];
+                    count++;
+                }
+                if(i>0 && j<img[i].size()-1){
+                    sum+=img[i-1][j+1];
+                    count++;
+                }
+                if(j<img[i].size()-1){
+                    sum+=img[i][j+1];
+                    count++;
+                }
+                if(i<img.size()-1 && j<img[i].size()-1){
+                    sum+=img[i+1][j+1];
+                    count++;
+                }
+                v.push_back(floor(sum/count));
+            }
+            ans.push_back(v);
+        }
+        return ans;
+    }
