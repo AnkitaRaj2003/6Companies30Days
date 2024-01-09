@@ -1,0 +1,26 @@
+//Leetcode: 
+
+------------BRUTE FORCE---------------
+TC: O(x*y)
+    bool checkOverlap(int r, int x, int y, int x1, int y1, int x2, int y2) {
+        for(int i=x1;i<=x2;i++)
+        {
+            for(int j=y1;j<=y2;j++)
+            {
+                int d=((i-x)*(i-x)+(j-y)*(j-y));
+                int p=r*r;
+                if(d<=p)return true;
+            }
+        }
+        return false;
+    }
+
+------------------BETTER----------------
+TC: O(1)
+
+    bool checkOverlap(int radius, int xCenter, int yCenter, int x1, int y1, int x2, int y2) {
+        int x = max(x1,min(x2,xCenter));
+        int y = max(y1,min(y2,yCenter));
+        int ans = (x-xCenter)*(x-xCenter)+(y-yCenter)*(y-yCenter);
+        return ans<=(radius*radius);
+    }
