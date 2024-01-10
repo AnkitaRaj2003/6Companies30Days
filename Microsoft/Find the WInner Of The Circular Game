@@ -1,0 +1,46 @@
+//Leetcode: https://leetcode.com/problems/find-the-winner-of-the-circular-game/
+
+    int findTheWinner(int n, int k) {
+        int a[n];
+        for(int i=0;i<n;i++) a[i] = i+1;
+        int c=n,x=k-1,i=0;
+        while(c!=1){
+            if(a[i]!=-1){
+                if(x==0){
+                    a[i] = -1;
+                    x=k-1;
+                    c--;
+                }
+                else x--;
+            }
+            i = (i+1)%n;
+        }
+        for(int i=0;i<n;i++){
+            if(a[i]!=-1){
+                c = a[i];
+                break;
+            }
+        }
+        return c;
+    }
+
+-----------OPTIMIZED---------------
+    int findTheWinner(int n, int k) {
+        int winner = 0;  // Initially, the winner is assumed to be at position 0
+        for (int i = 2; i <= n; ++i) {
+            winner = (winner + k) % i;
+        }
+        return winner + 1;  // Add 1 to convert 0-based index to 1-based index
+    }
+
+------------OR-------------------
+    // Recursive function to find the winner's index
+    int findWinnerIndex(int n, int k) {
+        return (n == 1) ? 0 : (findWinnerIndex(n - 1, k) + k) % n;
+    }
+
+    // Function to find the winner's index and return the winner's position
+    int findTheWinner(int numberOfPeople, int kValue) {
+        int winnerIndex = findWinnerIndex(numberOfPeople, kValue);
+        return winnerIndex + 1;
+    }
