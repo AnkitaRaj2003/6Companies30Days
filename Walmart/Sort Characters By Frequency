@@ -1,0 +1,48 @@
+//Leetcode: https://leetcode.com/problems/sort-characters-by-frequency/
+
+    static bool com(pair<int,char>p1,pair<int,char>p2){
+        if(p1.first>p2.first) return true;
+        if(p1.first==p2.first) return (p1.second<p2.second);
+        return false;
+    }
+    string frequencySort(string s) {
+        unordered_map<char,int>m;
+        vector<pair<int,char>>v;
+        for(int i=0;s[i]!='\0';i++) m[s[i]]++;
+        for(auto x:m) v.push_back({x.second,x.first});
+        sort(v.begin(),v.end(),com);
+        string ans = "";
+        for(auto x:v){
+            int c = x.first;
+            while(c--) ans+=x.second;
+        }
+        return ans;
+    }
+------------------OR-----------------
+    string frequencySort(string s) {
+        unordered_map<char,int>mp;
+
+        for(int i=0;i<s.size();i++)
+        {
+            mp[s[i]]++;
+        }
+        string ans="";
+        priority_queue<pair<int,char>>p;
+
+        for(auto i : mp)
+        {
+              p.push({i.second,i.first});
+        }
+
+        while(!p.empty())
+        {
+            int n = p.top().first;
+            while(n--)
+            {
+                ans+=p.top().second;
+            }
+            p.pop();
+        }
+        return ans;
+        
+    }
