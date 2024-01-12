@@ -1,0 +1,25 @@
+//Leetcode: https://leetcode.com/problems/random-flip-matrix/submissions/1144022962/
+
+    int max_val = 0;
+    int row = 0;
+    int col = 0;
+    unordered_set<int> v;
+    Solution(int m, int n) {
+        max_val = m * n;
+        row = m;
+        col = n;
+    }
+    
+    vector<int> flip() {
+        if(v.size() == max_val) return {};
+        int r = rand() % max_val;
+        while(v.count(r)) {
+            r = (++r) %max_val;
+        }
+        v.insert(r);
+        return {r / col, r % col };
+    }
+    
+    void reset() {
+        v = {};
+    }
