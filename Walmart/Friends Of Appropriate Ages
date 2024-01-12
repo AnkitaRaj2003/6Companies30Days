@@ -1,0 +1,38 @@
+//Leetcode: 
+
+---------BRUTEFORCE------------
+TC: O(N2)
+    int numFriendRequests(vector<int>& age) {
+        // age[y] <= 0.5 * age[x] + 7
+        // age[y] > age[x]
+        // age[y] > 100 && age[x] < 100
+        int n = age.size(),c=0;
+        for(int x=0;x<n;x++){
+            for(int y=n-1;y>x;y--){
+                if(!(age[y] <= 0.5 * age[x] + 7) && !(age[y] > age[x]) && !(age[y] > 100 && age[x] < 100)) c++;
+                if(!(age[x] <= 0.5 * age[y] + 7) && !(age[x] > age[y]) && !(age[x] > 100 && age[y] < 100)) c++;
+            }
+        }
+        return c;
+    }
+
+-------------BETTER----------------
+    bool result(int x,int y){
+        return ((y <= 0.5 * x + 7) || (y > x) || (y > 100 && x < 100));
+    }
+    int numFriendRequests(vector<int>& age) {
+        // age[y] <= 0.5 * age[x] + 7
+        // age[y] > age[x]
+        // age[y] > 100 && age[x] < 100
+        int c=0;
+        unordered_map<int,int>m;
+        for(auto x:age) m[x]++;
+        for(auto x:m){
+            for(auto y:m){
+                if(!result(x.first,y.first)){
+                    c+=x.second*(y.second-(x.first==y.first?1:0));
+                }
+            }
+        }
+        return c;
+    }
