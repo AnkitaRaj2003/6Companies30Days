@@ -1,0 +1,40 @@
+//Leetcode: https://leetcode.com/problems/maximum-length-of-repeated-subarray/
+
+--------------------------BRUTE FORCE---------------------------
+    int findLength(vector<int>& nums1, vector<int>& nums2) {
+        int maxi=0;
+        for(int i=0;i<nums1.size();i++){
+            int j=0,l=i;
+            for(int k=0;k<nums2.size();k++){
+                if(l<nums1.size()&&nums1[l]==nums2[k]) l++;
+                else{
+                    maxi = max(maxi,k-j);
+                    k=j++;
+                    l=i;
+                }
+            }
+            int x = nums2.size()-j;
+            maxi = max(maxi,x);
+        }
+        return maxi;
+    }
+
+
+----------------------------DP-----------------------------
+class Solution { // 344 ms, faster than 21.07%
+public:
+    int findLength(vector<int>& nums1, vector<int>& nums2) {
+        int m = nums1.size(), n = nums2.size();
+        vector<vector<int>> dp(m+1, vector<int>(n+1));
+        int ans = 0;
+        for (int i = 1; i <= m; ++i) {
+            for (int j = 1; j <= n; ++j) {
+                if (nums1[i-1] == nums2[j-1])
+                    dp[i][j] = dp[i-1][j-1] + 1;
+                else dp[i][j] = 0;
+                ans = max(ans, dp[i][j]);
+            }
+        }
+        return ans;
+    }
+};
