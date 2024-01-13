@@ -1,0 +1,27 @@
+//Leetcode: https://leetcode.com/problems/number-of-ways-to-reach-a-position-after-exactly-k-steps/
+
+    int f(int k,int c,int e){
+        if(k==0){
+            if(c==e) return 1;
+            return 0;
+        }
+        return (f(k-1,c+1,e)+f(k-1,c-1,e))%mod;
+    }
+    int numberOfWays(int startPos, int endPos, int k) {
+        return f(k,startPos,endPos);
+    }
+
+---------------------OR----------------------
+    int f(int k,int c,int e,vector<vector<int>>&dp){
+        if(k==0){
+            if(c==e) return 1;
+            return 0;
+        }
+        if(abs(c-e)>k) return 0;
+        if(dp[k][c+1000]==-1) dp[k][c+1000] = (f(k-1,c+1,e,dp)+f(k-1,c-1,e,dp))%mod;
+        return dp[k][c+1000]%mod;
+    }
+    int numberOfWays(int startPos, int endPos, int k) {
+        vector<vector<int>>dp(k+1,vector<int>(3001,-1));
+        return f(k,startPos,endPos,dp);
+    }
