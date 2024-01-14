@@ -1,0 +1,27 @@
+//Leetcode: https://leetcode.com/problems/largest-divisible-subset/
+
+--------------------BRUTE FORCE--------------------
+    void f(int i,int n,vector<int>nums,vector<int>&ans,vector<int>&t){
+        if(i==n){
+            if(t.size()>ans.size()) ans = t;
+            return;
+        }
+        bool flag=true;
+        for(int j=0;j<t.size();j++){
+            if(!(nums[i]%t[j]==0 || t[j]%nums[i]==0)){
+                flag = false;
+                break;
+            }
+        }
+        if(flag){
+            t.push_back(nums[i]);
+            f(i+1,n,nums,ans,t);
+            t.pop_back();
+        }
+        f(i+1,n,nums,ans,t);
+    }
+    vector<int> largestDivisibleSubset(vector<int>& nums) {
+        vector<int>ans,temp;
+        f(0,nums.size(),nums,ans,temp);
+        return ans;
+    }
