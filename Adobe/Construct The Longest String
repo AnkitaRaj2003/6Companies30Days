@@ -1,0 +1,32 @@
+//GFG: 
+
+------------------------------BRUTE FORCE---------------------------------------
+    int f(int x,int y,int z,int last){
+        if(x==0 && y==0 && z==0) return 0;
+        int a=0,b=0,c=0;
+        if(x>0 && last!=0 && last!=2) a=2+f(x-1,y,z,0);
+        if(y>0 && last!=1) b=2+f(x,y-1,z,1);
+        if(z>0 && last!=1) c=2+f(x,y,z-1,2);
+        return max(a,max(b,c));
+    }
+    int longestString(int x, int y, int z) {
+        return f(x,y,z,-1);
+    }
+
+--------------------------MEMOIZATION-----------------------------------------
+class Solution {
+public:
+    int f(int x,int y,int z,int last,vector<vector<vector<vector<int>>>>&dp){
+        if(x==0 && y==0 && z==0) return 0;
+        if(dp[x][y][z][last]!=-1) return dp[x][y][z][last];
+        int a=0,b=0,c=0;
+        if(x>0 && last!=1 && last!=3) a=2+f(x-1,y,z,1,dp);
+        if(y>0 && last!=2) b=2+f(x,y-1,z,2,dp);
+        if(z>0 && last!=2) c=2+f(x,y,z-1,3,dp);
+        return dp[x][y][z][last]=max(a,max(b,c));
+    }
+    int longestString(int x, int y, int z) {
+vector<vector<vector<vector<int>>>>dp(x+1,vector<vector<vector<int>>>(y+1,vector<vector<int>>(z+1,vector<int>(4,-1))));
+        return f(x,y,z,0,dp);
+    }
+};
