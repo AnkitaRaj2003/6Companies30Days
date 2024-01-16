@@ -1,0 +1,17 @@
+//Leetcode: https://leetcode.com/problems/find-players-with-zero-or-one-losses/description/
+
+    vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+        unordered_map<int,int>winner,loser;
+        vector<vector<int>> answer(2);
+        for(int i=0;i<matches.size();i++){
+            if(winner[matches[i][0]]!=-1) winner[matches[i][0]]=1;
+            winner[matches[i][1]]=-1;
+
+            loser[matches[i][1]]++;
+        }
+        for(auto x: winner) if(x.second!=-1) answer[0].push_back(x.first);
+        for(auto x: loser) if(x.second==1) answer[1].push_back(x.first);
+        sort(answer[0].begin(),answer[0].end());
+        sort(answer[1].begin(),answer[1].end());
+        return answer;
+    }
