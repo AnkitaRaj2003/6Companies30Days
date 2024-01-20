@@ -1,0 +1,26 @@
+//Leetcode: https://leetcode.com/problems/matrix-cells-in-distance-order/description/
+
+vector<vector<int>> allCellsDistOrder(int rows, int cols, int rCenter, int cCenter) 
+    {
+        vector<vector<int>> ans;
+        int distance=0;
+        while(distance<=rows+cols-2)
+        {
+            for(int i=0;i<rows;i++)
+            {
+                for(int j=0;j<cols;j++)
+                {
+                    if((abs(i-rCenter)+abs(j-cCenter))==distance)
+                    {
+                        vector<int> temp;
+                        temp.push_back(i);
+                        temp.push_back(j);
+                        ans.push_back(temp);
+                    }
+                }
+            }
+            distance++;
+        }
+        return answer;
+        
+    }
