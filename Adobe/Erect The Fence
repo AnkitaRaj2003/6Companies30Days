@@ -1,0 +1,47 @@
+//Leetcode: https://leetcode.com/problems/erect-the-fence/
+
+int findequation(pair<int,int>&p1,pair<int,int>&p2,pair<int,int>p3){
+    int x1 = p1.first;
+    int x2 = p2.first;
+    int x3 = p3.first;
+    int y1 = p1.second;
+    int y2 = p2.second;
+    int y3 = p3.second;
+    //WE ARE FINDING SLOPE
+    return (y3-y2)*(x2-x1)-(y2-y1)*(x3-x2);
+}
+    vector<vector<int>> outerTrees(vector<vector<int>>& trees) {
+        vector<vector<int>>result;// TO STOR THE ANS
+        sort(begin(trees),end(trees));
+        deque<pair<int,int>>lower,upper;//FOR FINDING SLOPE FOR THE UPPER HALF AND LOWER HALF
+        for(auto&points : trees){
+            int l = lower.size();
+            int u = upper.size();
+     while(l>=2 && findequation(lower[l-2],lower[l-1],{points[0],points[1]})<0)
+         {  
+             l--;
+             lower.pop_back();
+            }
+            //FAIL CONDITION
+                  
+     while(u>=2 && findequation(upper[u-2],upper[u-1],{points[0],points[1]})>0)
+         {  
+             u--;
+             upper.pop_back();
+            }
+            upper.push_back({points[0],points[1]});
+            lower.push_back({points[0],points[1]});
+        }
+        set<pair<int,int>>st;
+        for(auto&point : lower){
+            st.insert(point);
+        }
+        for(auto&point : upper){
+            st.insert(point);
+        }
+        for(auto &point : st){
+            result.push_back({point.first,point.second});
+        }
+        return result;
+        
+    }
