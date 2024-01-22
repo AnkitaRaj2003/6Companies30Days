@@ -1,0 +1,22 @@
+//Leetcode: https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/
+
+    string findLongestWord(string s, vector<string>& d) {
+        // support variables
+        string res = "";
+        // checking each
+        for (int i = 0, lmt = d.size(), j, currLen; i < lmt; i++) {
+            // preparing to parse with d[i]
+            j = 0, currLen = d[i].size();
+            for (char c: s) {
+                // advancing j for each match
+                if (c == d[i][j]) {
+                    j++;
+                    // checking if the match is full and in case updating res
+                    if (j == currLen &&
+                        (currLen > res.size() || currLen == res.size() && d[i] < res)
+                    ) res = d[i];
+                }
+            }
+        }
+        return res;
+    }
