@@ -1,0 +1,57 @@
+//Leetcode: https://leetcode.com/problems/throne-inheritance/description/
+
+class Node
+{
+    public:
+        string name;
+        bool alive=true;
+        vector<Node*> children;
+        Node(){}
+        Node(string name)
+        {
+            this->alive = true;
+            this->name = name;
+        }
+};
+class ThroneInheritance {
+public:
+    Node * root;
+    unordered_map<string,Node*> hash;
+    ThroneInheritance(string kingName) {
+        root = new Node(kingName);
+        hash[kingName] = root;
+    }
+    
+    
+    void birth(string parentName, string childName) {
+    Node * newNode = new Node(childName);
+       hash[parentName]->children.push_back(newNode);
+       hash[childName] = newNode;
+        
+    }
+ 
+    void death(string name) {
+        hash[name]->alive = false;
+    }
+    
+    void preorder(Node* root,vector<string> &ans)
+    {
+        if (root != NULL)
+        {
+            if (root->alive)
+            {
+                ans.push_back(root->name);
+            }
+           
+            for (int i = 0;i<root->children.size();i++)
+            {
+                preorder(root->children[i],ans);
+            }
+        }
+    }
+    vector<string> getInheritanceOrder() {
+        vector<string> ans;
+        preorder(root,ans);
+        return ans;
+    }
+};
