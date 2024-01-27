@@ -1,0 +1,39 @@
+//Leetcode: https://leetcode.com/problems/assign-cookies/description/
+
+class Solution {
+public:
+    int binarySearch(std::vector<int>& s, int target) {
+        int left = 0, right = s.size() - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (s[mid] == target) {
+                return mid; 
+            } else if (s[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1; 
+            }
+        }
+        return left;
+    }
+
+    int findContentChildren(std::vector<int>& g, std::vector<int>& s) {
+        std::sort(g.begin(), g.end());
+        std::sort(s.begin(), s.end());
+
+        int numContentChildren = 0;
+
+        for (int i = 0; i < g.size(); ++i) {
+            int index = binarySearch(s, g[i]);
+
+            if (index < s.size()) {
+                numContentChildren++;
+                s.erase(s.begin() + index);
+            }
+        }
+
+        return numContentChildren;
+    }
+};
